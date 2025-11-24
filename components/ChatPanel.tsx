@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect, useImperativeHandle, forwardRef } from 'react';
 import { Send, Sparkles, Loader2, Image as ImageIcon, X, Square, BrainCircuit, ChevronDown, ChevronRight, Clock, FileText } from 'lucide-react';
 import { ChatMessage, CodeState } from '../types';

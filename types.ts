@@ -33,3 +33,13 @@ export interface GeminiCodeResponse {
     js?: string;
   };
 }
+
+// Extend Window interface for AI Studio
+declare global {
+  interface Window {
+    aistudio?: {
+      openSelectKey?: () => Promise<void>;
+      hasSelectedApiKey?: () => Promise<boolean>;
+    };
+  }
+}

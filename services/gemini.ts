@@ -124,6 +124,10 @@ ${currentCode.js}
     }
 
     try {
+      if (signal?.aborted) {
+        throw new Error("Request aborted");
+      }
+
       const response = await ai.models.generateContent({
         model: targetModel,
         contents: { parts },
@@ -138,7 +142,11 @@ ${currentCode.js}
       if (!rawText) throw new Error("No response from AI");
 
       parsedResponse = JSON.parse(rawText) as GeminiCodeResponse;
-    } catch (error) {
+    } catch (error: any) {
+      // If it's an abort error, throw it cleanly without logging as API error
+      if (error.message === "Request aborted" || signal?.aborted) {
+        throw new Error("Request aborted");
+      }
       console.error("Gemini API Error:", error);
       throw error;
     }
@@ -177,6 +185,10 @@ ${currentCode.js}
     messages.push({ role: "user", content: userContent });
 
     try {
+        if (signal?.aborted) {
+            throw new Error("Request aborted");
+        }
+
         const response = await fetch(`${baseUrl.replace(/\/+$/, '')}/chat/completions`, {
             method: 'POST',
             headers: {
@@ -208,7 +220,7 @@ ${currentCode.js}
         parsedResponse = JSON.parse(cleanedContent) as GeminiCodeResponse;
 
     } catch (error: any) {
-        if (error.name === 'AbortError') {
+        if (error.name === 'AbortError' || signal?.aborted) {
              throw new Error("Request aborted");
         }
         console.error("Custom Provider API Error:", error);
