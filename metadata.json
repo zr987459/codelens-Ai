@@ -1,0 +1,5 @@
+{
+  "name": "CodeLens AI",
+  "description": "一个由 Gemini 驱动的智能实时网页代码编辑器。支持 HTML、CSS 和 JS 的实时预览，并提供 AI 驱动的代码分析、调试和生成功能。",
+  "requestFramePermissions": []
+}
