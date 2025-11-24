@@ -36,10 +36,12 @@ export interface GeminiCodeResponse {
 
 // Extend Window interface for AI Studio
 declare global {
+  interface AIStudio {
+    openSelectKey: () => Promise<void>;
+    hasSelectedApiKey: () => Promise<boolean>;
+  }
+
   interface Window {
-    aistudio?: {
-      openSelectKey?: () => Promise<void>;
-      hasSelectedApiKey?: () => Promise<boolean>;
-    };
+    aistudio?: AIStudio;
   }
 }
